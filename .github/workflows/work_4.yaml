@@ -15,30 +15,25 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t todo-app .
+        run: docker build -t todo-app ./work_4
 
       - name: Run lint
         run: docker run --rm todo-app ruff check .
 
       - name: Run tests
-        run: docker run --rm todo-app pytest
-  ai-review:
+        run: docker run --rm -e PYTHONPATH=/app todo-app pytest
+
+  request-copilot-review:
+    needs: lint-and-test
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Run AI review bot
+    steps:
+      - name: Assign Copilot as a reviewer
         env:
-          AI_REVIEW_TOKEN: ${{ secrets.AI_REVIEW_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Run AI review here"
-          echo "Replace this step with Copilot CLI or your AI review command"
-          echo "---"
-          echo "Example: Use a GitHub Action for AI-powered code review"
-          echo "Example: gh copilot review --diff"
-          echo "---"
-          echo "This is a template. Configure based on your environment."
+          # --repo ${{ github.repository }} を追加
+          gh pr edit ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --add-reviewer @copilot
