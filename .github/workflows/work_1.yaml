@@ -1,10 +1,6 @@
 name: work_1
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'work_1/**'
   workflow_dispatch:
 
 jobs:
