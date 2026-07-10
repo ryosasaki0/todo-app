@@ -1,11 +1,11 @@
 name: work_1
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
     paths:
       - 'work_1/**'
+  workflow_dispatch:
 
 jobs:
   hello:

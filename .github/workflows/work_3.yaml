@@ -4,7 +4,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - 'work_3/**' # ★ここを追加：work_3 ディレクトリ内のファイル変更のみを対象にする
+      - 'work_3/**'
+  workflow_dispatch:
 
 jobs:
   lint-and-test:
