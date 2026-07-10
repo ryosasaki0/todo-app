@@ -1,4 +1,4 @@
-name: AI Review
+name: work_4
 
 on:
   pull_request:
