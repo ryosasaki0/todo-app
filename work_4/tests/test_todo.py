@@ -25,11 +25,3 @@ def test_add_multiple_todos():
     assert len(todos) == 2
     assert todos[0]["title"] == "Task 1"
     assert todos[1]["title"] == "Task 2"
-
-
-def test_add_todo_intentionally_fails():
-    """Intentionally failing test for CI failure demo."""
-    todos = []
-    result = add_todo(todos, "Task 1")
-    # Intentionally wrong expectation for CI failure demo.
-    assert len(result) == 2

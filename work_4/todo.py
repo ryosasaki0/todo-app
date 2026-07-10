@@ -1,10 +1,6 @@
 """TODO management functions."""
 
 
-# Intentionally unused variable for CI failure demo.
-unused_value = "This variable is intentionally unused for CI demo"
-
-
 def create_todo(title: str) -> dict:
     """Create a new TODO item."""
     return {"title": title}
