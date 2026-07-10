@@ -1,0 +1,43 @@
+name: AI Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'work_4/**' # ★ここを追加：work_4 ディレクトリ内のファイル変更のみを対象にする
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t todo-app .
+
+      - name: Run lint
+        run: docker run --rm todo-app ruff check .
+
+      - name: Run tests
+        run: docker run --rm todo-app pytest
+  ai-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run AI review bot
+        env:
+          AI_REVIEW_TOKEN: ${{ secrets.AI_REVIEW_TOKEN }}
+        run: |
+          echo "Run AI review here"
+          echo "Replace this step with Copilot CLI or your AI review command"
+          echo "---"
+          echo "Example: Use a GitHub Action for AI-powered code review"
+          echo "Example: gh copilot review --diff"
+          echo "---"
+          echo "This is a template. Configure based on your environment."
